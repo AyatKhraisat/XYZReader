@@ -1,7 +1,0 @@
-#Fri Jun 23 00:01:16 EEST 2017
-base.0=C\:\\Users\\dell\\Desktop\\XYZReader\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_4f011673fcdba3fcf0eafc6af8f84de3f5013d00
-renamed.1=classes2.dex
-renamed.0=classes.dex
-file.1=C\:\\Users\\dell\\Desktop\\XYZReader\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_dc7028a18810b3b0a0299bee03e58fa6efa7583a\\classes.dex
-base.1=C\:\\Users\\dell\\Desktop\\XYZReader\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_dc7028a18810b3b0a0299bee03e58fa6efa7583a
-file.0=C\:\\Users\\dell\\Desktop\\XYZReader\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_4f011673fcdba3fcf0eafc6af8f84de3f5013d00\\classes.dex
