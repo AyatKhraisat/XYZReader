@@ -216,7 +216,6 @@ public class ArticleDetailFragment extends Fragment implements
             @Override
             public void onScrollChanged() {
                 scrollY = scrollView.getScrollY();
-                getActivityCast().onUpButtonFloorChanged(itemId,ArticleDetailFragment.this);
                 int translationY = (int) (scrollY - scrollY / PARALLAX_FACTOR);
                 photoView.setTranslationY(translationY * PARALLAX_FACTOR);
                 updateStatusBar();
