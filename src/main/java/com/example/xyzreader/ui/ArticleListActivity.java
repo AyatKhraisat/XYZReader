@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -19,12 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Interpolator;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
@@ -36,7 +32,7 @@ import com.example.xyzreader.data.UpdaterService;
  * touched, lead to a {@link ArticleDetailActivity} representing item details. On tablets, the
  * activity presents a grid of items as cards.
  */
-public class ArticleListActivity extends ActionBarActivity implements
+public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private Toolbar mToolbar;
@@ -174,23 +170,11 @@ public class ArticleListActivity extends ActionBarActivity implements
                             mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
                             System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
                             DateUtils.FORMAT_ABBREV_ALL).toString());
-            Glide.with(ArticleListActivity.this)
-                    .load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
-                    .into(holder.thumbnailView);
-            Interpolator interpolator =
-                    AnimationUtils.loadInterpolator(ArticleListActivity.this, android.R.interpolator.linear_out_slow_in);
+            holder.thumbnailView.setImageUrl(
+                    mCursor.getString(ArticleLoader.Query.THUMB_URL),
+                    ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
+            holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
 
-            holder.cardView.setTranslationY(offset);
-            holder.cardView.setAlpha(0.85f);
-            // then animate back to natural position
-            holder.cardView.animate()
-                    .translationY(0f)
-                    .alpha(1f)
-                    .setInterpolator(interpolator)
-                    .setDuration(1000L)
-                    .start();
-            // increase the offset distance for the next view
-            offset *= 1.5f;
         }
 
         @Override
@@ -200,14 +184,14 @@ public class ArticleListActivity extends ActionBarActivity implements
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView thumbnailView;
+        public com.example.xyzreader.ui.DynamicHeightNetworkImageView thumbnailView;
         public TextView titleView;
         public TextView subtitleView;
         public CardView cardView;
 
         public ViewHolder(View view) {
             super(view);
-            thumbnailView = (ImageView) view.findViewById(R.id.thumbnail);
+            thumbnailView = (com.example.xyzreader.ui.DynamicHeightNetworkImageView) view.findViewById(R.id.thumbnail);
             titleView = (TextView) view.findViewById(R.id.article_title);
             subtitleView = (TextView) view.findViewById(R.id.article_subtitle);
             cardView = (CardView) view.findViewById(R.id.carview);
